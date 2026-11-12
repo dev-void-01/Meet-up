@@ -1,0 +1,11 @@
+# Existing local dependencies and build output
+/client/node_modules/
+/client/dist/
+/server/node_modules/
+
+# Existing local secrets
+/client/.env
+/server/.env
+
+# Existing local documentation
+/How to Run Project.pdf
