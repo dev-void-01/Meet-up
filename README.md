@@ -41,6 +41,10 @@ Set `VITE_CLERK_PUBLISHABLE_KEY` in `client/.env` before starting Vite. `VITE_BA
 
 The included `client/vercel.json` is for the frontend SPA. Import the repository into Vercel and set the project's Root Directory to `client`. Set `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_BASE_URL` in the Vercel project's environment variables; `VITE_BASE_URL` must be the public URL of the deployed backend.
 
+## Deploy the frontend to Render
+
+For a Render Static Site, set the Root Directory to `client`, the build command to `npm run build`, and the publish directory to `dist`. In the Render Dashboard, add a **Rewrite** rule with source `/*` and destination `/index.html`. This lets React Router handle routes such as `/dashboard` after Clerk redirects back from sign-in. Set `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_BASE_URL` in the site's environment variables.
+
 ### Does the backend need a Vercel config file?
 
 No—not for the existing deployment setup. Deploy the Express/Socket.IO backend separately to a host that supports a continuously running Node.js process and persistent WebSocket connections. Add the variables from `server/.env.example` to that host's environment settings, and set `ORIGINS` to the deployed frontend's origin.
