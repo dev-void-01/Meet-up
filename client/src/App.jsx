@@ -1,13 +1,25 @@
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { useAuth } from '@clerk/react'
 import Login from './pages/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import Protectedlayout from './components/Protectedlayout'
+import Loader from './components/Loader'
 import Dashboard from './pages/Dashboard'
 import Sessions from './pages/Sessions'
 import Pricing from './pages/Pricing'
 import MeetingRoom from './pages/MeetingRoom'
+
+const HomeRedirect = () => {
+  const { isLoaded, isSignedIn } = useAuth()
+
+  if (!isLoaded) {
+    return <Loader text="Authenticating..." />
+  }
+
+  return <Navigate to={isSignedIn ? '/dashboard' : '/login'} replace />
+}
 
 const App = () => {
   return (
@@ -29,7 +41,7 @@ const App = () => {
         </Route>
 
         {/* other Routes */}
-      <Route path='*' element={ <Navigate to='/dashboard' replace/> }/>
+      <Route path='*' element={ <HomeRedirect /> }/>
       </Routes>
     </>
   )
