@@ -12,12 +12,16 @@ export async function initDB() {
             CREATE TABLE IF NOT EXISTS users (
                 id VARCHAR(255) PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                email VARCHAR(255) NOT NULL UNIQUE,
+                email VARCHAR(255) NOT NULL,
                 image VARCHAR(500),
                 plan VARCHAR(20) DEFAULT 'free',
                 created_at TIMESTAMPTZ DEFAULT NOW(),
                 updated_at TIMESTAMPTZ DEFAULT NOW()
             );
+        `;
+
+        await sql`
+            ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key;
         `;
 
         await sql`
